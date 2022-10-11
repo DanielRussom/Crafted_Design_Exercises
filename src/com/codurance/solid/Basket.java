@@ -20,7 +20,6 @@ public class Basket {
 		return books.getBooks();
 	}
 	
-
 	public double priceWithDiscount() {
 		double it_books_discount = 0;
 		double travel_books_discount = 0;
