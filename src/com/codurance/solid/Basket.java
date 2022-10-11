@@ -10,15 +10,16 @@ import static java.util.Collections.unmodifiableList;
 
 public class Basket {
 
-	private List<Book> books = new ArrayList<>();
+	private BookCollection books = new BookCollection();
 
 	public void add(Book item) {
 		books.add(item);
 	}
 
 	public List<Book> books() {
-		return unmodifiableList(books);
+		return books.getBooks();
 	}
+	
 
 	public double priceWithDiscount() {
 		double it_books_discount = 0;
@@ -29,7 +30,7 @@ public class Basket {
 		double total_price_for_travel_books = 0;
 		double total_price_for_other_books = 0;
 
-		for (Book book : this.books) {
+		for (Book book : this.books.getBooks()) {
 			if (IT.equals(book.type())) {
 				number_of_it_books += 1;
 				total_price_for_it_books += book.price();
@@ -57,12 +58,11 @@ public class Basket {
 				  total_price_for_it_books * it_books_discount)
 				+ total_price_for_travel_books
 				+ total_price_for_other_books);
-
 	}
 
 	public double fullPrice() {
 		double price = 0;
-		for (Book book : books) {
+		for (Book book : books.getBooks()) {
 			price += book.price();
 		}
 		return toDecimal(price);
