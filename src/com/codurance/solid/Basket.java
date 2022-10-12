@@ -27,5 +27,4 @@ public class Basket {
 	private double toDecimal(double number) {
 		return round(number * 100) / 100.0;
 	}
-
 }
