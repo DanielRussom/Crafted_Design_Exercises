@@ -23,7 +23,6 @@ public class BookCollection {
 	}
 		
 	public double priceWithDiscount() {
-		
 		return discountCalculator.priceWithDiscount(this);
 	}
 

@@ -3,22 +3,27 @@ package com.codurance.solid;
 import static com.codurance.solid.BookType.IT;
 import static com.codurance.solid.BookType.TRAVEL;
 
+import java.util.stream.Collectors;
+
 public class DiscountCalculator {
 	public double priceWithDiscount(BookCollection books) {
 		double it_books_discount = 0;
 		double travel_books_discount = 0;
+		
 		double number_of_it_books = 0;
 		double number_of_travel_books = 0;
+		
 		double total_price_for_it_books = 0;
 		double total_price_for_travel_books = 0;
 		double total_price_for_other_books = 0;
-
+		
+		number_of_it_books = books.getBooks().stream().filter(book -> book.type().equals(IT)).count();
+		number_of_travel_books = books.getBooks().stream().filter(book -> book.type().equals(TRAVEL)).count();
+				
 		for (Book book : books.getBooks()) {
 			if (IT.equals(book.type())) {
-				number_of_it_books += 1;
 				total_price_for_it_books += book.price();
 			} else if (TRAVEL.equals(book.type())) {
-				number_of_travel_books += 1;
 				total_price_for_travel_books += book.price();
 			} else {
 				total_price_for_other_books += book.price();
