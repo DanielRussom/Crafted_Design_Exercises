@@ -10,14 +10,9 @@ public class DiscountCalculator {
 		var itBookDiscounter = new ItBookDiscount();
 		var travelBookDiscounter = new TravelBookDiscount();
 		
-		double total_price_for_undiscounted_books = 0;
+		var undiscountedBooks = books.getBooks().stream().filter(book -> !book.type().equals(IT) && !book.type().equals(TRAVEL));
+		var total_price_for_undiscounted_books = undiscountedBooks.mapToDouble(Book::price).sum();
 		
-		for (Book book : books.getBooks()) {
-			if (!IT.equals(book.type()) && !TRAVEL.equals(book.type())){
-				total_price_for_undiscounted_books += book.price();
-			}
-		}
-
 		return itBookDiscounter.getDiscountedPrice(books)
 				+ travelBookDiscounter.getDiscountedPrice(books)
 				+ total_price_for_undiscounted_books;
