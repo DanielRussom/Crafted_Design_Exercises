@@ -4,6 +4,7 @@ import static java.util.Collections.unmodifiableList;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class BookCollection {
 	public BookCollection(DiscountCalculator calculator) {
@@ -35,4 +36,7 @@ public class BookCollection {
 		return price;
 	}
 	
+	public Stream<Book> getBooksOfType(BookType type){
+		return books.stream().filter(book -> book.type().equals(type));
+	}
 }

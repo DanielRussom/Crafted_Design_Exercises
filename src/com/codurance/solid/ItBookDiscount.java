@@ -2,14 +2,12 @@ package com.codurance.solid;
 
 import static com.codurance.solid.BookType.IT;
 
-import java.util.stream.Stream;
-
 public class ItBookDiscount implements IBookDiscount {
 
 	@Override
 	public double getDiscountedPrice(BookCollection books) {
-		double number_of_it_books = getItBooks(books).toList().size();
-		double total_price_for_it_books = getItBooks(books).mapToDouble(Book::price).sum();
+		double number_of_it_books = books.getBooksOfType(IT).count();
+		double total_price_for_it_books = books.getBooksOfType(IT).mapToDouble(Book::price).sum();
 		double it_books_discount = 0;
 		
 		if (number_of_it_books > 0) {
@@ -25,10 +23,5 @@ public class ItBookDiscount implements IBookDiscount {
 		}
 		
 		return total_price_for_it_books;
-	}
-
-	private Stream<Book> getItBooks(BookCollection books) {
-		var itBooks = books.getBooks().stream().filter(book -> book.type().equals(IT));
-		return itBooks;
 	}
 }
