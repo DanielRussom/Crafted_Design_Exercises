@@ -2,7 +2,7 @@ package com.codurance.solid;
 
 import static com.codurance.solid.BookType.TRAVEL;
 
-public class TravelBookDiscount implements IBookDiscount {
+public class TravelBookDiscount implements BookDiscount {
 
 	@Override
 	public double getDiscountedPrice(BookCollection books) {

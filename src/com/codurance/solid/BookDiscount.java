@@ -1,5 +1,5 @@
 package com.codurance.solid;
 
-public interface IBookDiscount {
+public interface BookDiscount {
 	public double getDiscountedPrice(BookCollection books);
 }

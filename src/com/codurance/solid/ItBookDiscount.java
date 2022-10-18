@@ -2,26 +2,26 @@ package com.codurance.solid;
 
 import static com.codurance.solid.BookType.IT;
 
-public class ItBookDiscount implements IBookDiscount {
+public class ItBookDiscount implements BookDiscount {
 
 	@Override
 	public double getDiscountedPrice(BookCollection books) {
-		double number_of_it_books = books.getBooksOfType(IT).count();
-		double total_price_for_it_books = books.getBooksOfType(IT).mapToDouble(Book::price).sum();
-		double it_books_discount = 0;
+		double numberOfItBooks = books.getBooksOfType(IT).count();
+		double totalPriceOfItBooks = books.getBooksOfType(IT).mapToDouble(Book::price).sum();
+		double itBooksDiscount = 0;
 		
-		if (number_of_it_books > 0) {
-			it_books_discount = 0.9; // 10% discount when buying up to 2 IT books
+		if (numberOfItBooks > 0) {
+			itBooksDiscount = 0.9; // 10% discount when buying up to 2 IT books
 		}
 
-		if (number_of_it_books > 2) {
-			it_books_discount = 0.7; // 30% discount when buying more than 2 IT books
+		if (numberOfItBooks > 2) {
+			itBooksDiscount = 0.7; // 30% discount when buying more than 2 IT books
 		} 
 		
-		if (it_books_discount > 0) {
-			total_price_for_it_books *= it_books_discount;
+		if (itBooksDiscount > 0) {
+			totalPriceOfItBooks *= itBooksDiscount;
 		}
 		
-		return total_price_for_it_books;
+		return totalPriceOfItBooks;
 	}
 }
