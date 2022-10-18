@@ -3,9 +3,9 @@ package com.codurance.solid;
 import static com.codurance.solid.BookType.IT;
 import static com.codurance.solid.BookType.FANTASY;
 import static com.codurance.solid.BookType.COOKING;
+import static com.codurance.solid.BookType.TRAVEL;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class BookDiscounterFactory {
 	
@@ -16,20 +16,15 @@ public class BookDiscounterFactory {
 			discounters.add(new ItBookDiscount());
 		};
 		
-		List<BookType> distinctBookTypes = books.getBooks().stream().map(x -> x.type()).distinct().toList();
+		if(books.getBooksOfType(TRAVEL).count() > 0) {
+			discounters.add(new TravelBookDiscount());
+		};
 		
-		for(var bookTypes : distinctBookTypes) {
-			switch(bookTypes) {
-			case IT:
-				discounters.add(new ItBookDiscount());
-			case TRAVEL:
-				discounters.add(new TravelBookDiscount());
-			}
-		}
+		if(books.getBooksOfType(FANTASY).count() > 0 || 
+				books.getBooksOfType(COOKING).count() > 0) {
+			discounters.add(new UndiscountedBookDiscounter());
+		};
 		
-		//if(distinctBookTypes.any(FANTASY) || distinctBookTypes.contains(COOKING))
-		discounters.add(new UndiscountedBookDiscounter());
-
 		return discounters;	
 	}
 }

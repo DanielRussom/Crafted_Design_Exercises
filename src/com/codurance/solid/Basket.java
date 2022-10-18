@@ -6,7 +6,7 @@ import static java.lang.Math.round;
 
 public class Basket {
 
-	private BookCollection books = new BookCollection(new DiscountCalculator());
+	private BookCollection books = new BookCollection(new DiscountCalculator(new BookDiscounterFactory()));
 
 	public void add(Book item) {
 		books.add(item);
