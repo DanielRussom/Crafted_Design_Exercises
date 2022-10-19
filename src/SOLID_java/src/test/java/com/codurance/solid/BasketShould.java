@@ -13,12 +13,12 @@ public class BasketShould {
 
 	@Test public void
 	return_total_price_of_zero_when_empty() {
-		assertEquals(emptyBasket().fullPrice(), 0.0, 0.0);
+		assertEquals(0.0, emptyBasket().fullPrice(), 0.0);
 	}
 
 	@Test public void
 	return_zero_discount_when_empty() {
-		assertEquals(emptyBasket().priceWithDiscount(), 0.0, 0.0);
+		assertEquals(0.0, emptyBasket().priceWithDiscount(), 0.0);
 	}
 
 	@Test(expected = UnsupportedOperationException.class) public void
@@ -31,8 +31,8 @@ public class BasketShould {
 		Book aBookWithNoDiscount = aCookingBook().costing(10.00).build();
 		Basket basket = aBasket().with(aBookWithNoDiscount).build();
 
-		assertEquals(basket.priceWithDiscount(), 10.0, 0.0);
-		assertEquals(basket.fullPrice(), 10.0, 0.0);
+		assertEquals(10.0, basket.priceWithDiscount(), 0.0);
+		assertEquals(10.0, basket.fullPrice(), 0.0);
 	}
 
 	@Test public void
@@ -45,7 +45,7 @@ public class BasketShould {
 									aTravelBook().costing(20.0).build())
 							.build();
 
-		assertEquals(basket.fullPrice(), 80.0, 0.0);
+		assertEquals(80.0, basket.fullPrice(), 0.0);
 	}
 
 
@@ -58,7 +58,7 @@ public class BasketShould {
 									anITBook().costing(20.0).build())
 							.build();
 
-		assertEquals(basket.priceWithDiscount(), 42.0, 0.0);
+		assertEquals(42.0, basket.priceWithDiscount(), 0.0);
 	}
 
 	@Test public void
@@ -68,7 +68,7 @@ public class BasketShould {
 									anITBook().costing(10.0).build())
 							.build();
 
-		assertEquals(basket.priceWithDiscount(), 9.0, 0.0);
+		assertEquals(9.0, basket.priceWithDiscount(), 0.0);
 	}
 
 	@Test public void
@@ -79,7 +79,7 @@ public class BasketShould {
 									anITBook().costing(10.0).build())
 							.build();
 
-		assertEquals(basket.priceWithDiscount(), 36.0, 0.0);
+		assertEquals(36.0, basket.priceWithDiscount(), 0.0);
 	}
 
 	@Test public void
@@ -91,7 +91,7 @@ public class BasketShould {
 									aTravelBook().costing(20.0).build())
 							.build();
 
-		assertEquals(basket.priceWithDiscount(), 60.0, 0.0);
+		assertEquals(60.0, basket.priceWithDiscount(), 0.0);
 	}
 
 	@Test public void
@@ -104,7 +104,7 @@ public class BasketShould {
 									aTravelBook().costing(10.0).build())
 							.build();
 
-		assertEquals(basket.priceWithDiscount(), 42.0, 0.0);
+		assertEquals(42.0, basket.priceWithDiscount(), 0.0);
 	}
 
 	@Test public void
@@ -118,7 +118,7 @@ public class BasketShould {
 									aTravelBook().costing(10.0).build())
 							.build();
 
-		assertEquals(basket.priceWithDiscount(), 51.0, 0.0);
+		assertEquals(51.0, basket.priceWithDiscount(), 0.0);
 	}
 
 
@@ -128,7 +128,19 @@ public class BasketShould {
 							.with(aFantasyBook().costing(10.0).build())
 							.build();
 
-		assertEquals(basket.priceWithDiscount(), 10.0, 0.0);
+		assertEquals(10.0, basket.priceWithDiscount(), 0.0);
+	}
+
+
+	@Test public void
+	apply_fantasy_discount_when_2_fantasy_books_are_in_cart() {
+		Basket basket = aBasket()
+							.with(
+									aFantasyBook().costing(10.0).build(),
+									aFantasyBook().costing(20.0).build())
+							.build();
+
+		assertEquals(24.0, basket.priceWithDiscount(), 0.0);
 	}
 
 	private Basket emptyBasket() {

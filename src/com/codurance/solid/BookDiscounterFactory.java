@@ -1,5 +1,6 @@
 package com.codurance.solid;
 
+import static com.codurance.solid.BookType.FANTASY;
 import static com.codurance.solid.BookType.IT;
 import static com.codurance.solid.BookType.TRAVEL;
 
@@ -16,6 +17,10 @@ public class BookDiscounterFactory {
 		
 		if(books.getBooksOfType(TRAVEL).count() > 0) {
 			discounters.add(new TravelBookDiscount());
+		};
+		
+		if(books.getBooksOfType(FANTASY).count() > 0) {
+			discounters.add(new FantasyBookDiscount());
 		};
 		
 		discounters.add(new UndiscountedBookDiscounter());
