@@ -4,6 +4,7 @@ import com.codurance.solid.Book;
 import com.codurance.solid.BookType;
 
 import static com.codurance.solid.BookType.COOKING;
+import static com.codurance.solid.BookType.FANTASY;
 import static com.codurance.solid.BookType.IT;
 import static com.codurance.solid.BookType.TRAVEL;
 
@@ -27,6 +28,10 @@ public class BookBuilder {
 
 	public static BookBuilder aTravelBook() {
 		return new BookBuilder(TRAVEL);
+	}
+
+	public static BookBuilder aFantasyBook() {
+		return new BookBuilder(FANTASY);
 	}
 
 	public BookBuilder costing(double price) {

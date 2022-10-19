@@ -121,6 +121,16 @@ public class BasketShould {
 		assertEquals(basket.priceWithDiscount(), 51.0, 0.0);
 	}
 
+
+	@Test public void
+	not_apply_fantasy_discount_when_1_fantasy_book_is_in_cart() {
+		Basket basket = aBasket()
+							.with(aFantasyBook().costing(10.0).build())
+							.build();
+
+		assertEquals(basket.priceWithDiscount(), 10.0, 0.0);
+	}
+
 	private Basket emptyBasket() {
 		return new Basket();
 	}
