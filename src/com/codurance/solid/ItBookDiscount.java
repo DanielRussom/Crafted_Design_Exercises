@@ -18,10 +18,6 @@ public class ItBookDiscount implements BookDiscount {
 			itBooksDiscount = 0.7; // 30% discount when buying more than 2 IT books
 		} 
 		
-		if (itBooksDiscount > 0) {
-			totalPriceOfItBooks *= itBooksDiscount;
-		}
-		
-		return totalPriceOfItBooks;
+		return totalPriceOfItBooks * itBooksDiscount;
 	}
 }

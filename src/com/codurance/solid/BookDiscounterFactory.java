@@ -1,8 +1,6 @@
 package com.codurance.solid;
 
 import static com.codurance.solid.BookType.IT;
-import static com.codurance.solid.BookType.FANTASY;
-import static com.codurance.solid.BookType.COOKING;
 import static com.codurance.solid.BookType.TRAVEL;
 
 import java.util.ArrayList;
@@ -20,11 +18,8 @@ public class BookDiscounterFactory {
 			discounters.add(new TravelBookDiscount());
 		};
 		
-		if(books.getBooksOfType(FANTASY).count() > 0 || 
-				books.getBooksOfType(COOKING).count() > 0) {
-			discounters.add(new UndiscountedBookDiscounter());
-		};
-		
+		discounters.add(new UndiscountedBookDiscounter());
+				
 		return discounters;	
 	}
 }
