@@ -11,10 +11,10 @@ public final class ProfitCalculatorTest {
 	public void calculates_the_tax_at_20_percent() {
 		gbpCalculator.add(new BankTransaction(500, Currency.GBP, true));
 
-		int profit = gbpCalculator.calculateProfit();
+		var profit = gbpCalculator.calculateProfit();
 		int tax = gbpCalculator.calculateTax();
 
-		assertEquals(400, profit);
+		assertEquals(400, profit.Value);
 		assertEquals(100, tax);
 	}
 
@@ -23,10 +23,10 @@ public final class ProfitCalculatorTest {
 		gbpCalculator.add(new BankTransaction(120, Currency.GBP, true));
 		gbpCalculator.add(new BankTransaction(200, Currency.GBP, true));
 
-		int profit = gbpCalculator.calculateProfit();
+		var profit = gbpCalculator.calculateProfit();
 		int tax = gbpCalculator.calculateTax();
 
-		assertEquals(256, profit);
+		assertEquals(256, profit.Value);
 		assertEquals(64, tax);
 	}
 
@@ -35,10 +35,10 @@ public final class ProfitCalculatorTest {
 		gbpCalculator.add(new BankTransaction(120, Currency.GBP, true));
 		gbpCalculator.add(new BankTransaction(200, Currency.USD, true));
 
-		int profit = gbpCalculator.calculateProfit();
+		var profit = gbpCalculator.calculateProfit();
 		int tax = gbpCalculator.calculateTax();
 
-		assertEquals(221, profit);
+		assertEquals(221, profit.Value);
 		assertEquals(24, tax);
 	}
 
@@ -48,10 +48,10 @@ public final class ProfitCalculatorTest {
 		gbpCalculator.add(new BankTransaction(80, Currency.USD, true));
 		gbpCalculator.add(new BankTransaction(360, Currency.EUR, false));
 
-		int profit = gbpCalculator.calculateProfit();
+		var profit = gbpCalculator.calculateProfit();
 		int tax = gbpCalculator.calculateTax();
 
-		assertEquals(150, profit);
+		assertEquals(150, profit.Value);
 		assertEquals(100, tax);
 	}
 
@@ -62,10 +62,10 @@ public final class ProfitCalculatorTest {
 		gbpCalculator.add(new BankTransaction(400, Currency.GBP, false));
 		gbpCalculator.add(new BankTransaction(20, Currency.GBP, false));
 
-		int profit = gbpCalculator.calculateProfit();
+		var profit = gbpCalculator.calculateProfit();
 		int tax = gbpCalculator.calculateTax();
 
-		assertEquals(-120, profit);
+		assertEquals(-120, profit.Value);
 		assertEquals(0, tax);
 	}
 
@@ -75,10 +75,10 @@ public final class ProfitCalculatorTest {
 		eurCalculator.add(new BankTransaction(200, Currency.USD, false));
 		eurCalculator.add(new BankTransaction(200, Currency.EUR, true));
 
-		int profit = eurCalculator.calculateProfit();
+		var profit = eurCalculator.calculateProfit();
 		int tax = eurCalculator.calculateTax();
 
-		assertEquals(491, profit);
+		assertEquals(491, profit.Value);
 		assertEquals(40, tax);
 	}
 

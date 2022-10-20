@@ -39,8 +39,9 @@ public final class ProfitCalculator {
         }
     }
 
-    public int calculateProfit() {
-        return localAmount - calculateTax() + foreignAmount;
+    public Amount calculateProfit() {
+        var profit = localAmount - calculateTax() + foreignAmount;
+        return new Amount(profit);
     }
 
     public int calculateTax() {
