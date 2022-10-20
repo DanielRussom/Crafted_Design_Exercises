@@ -12,10 +12,10 @@ public final class ProfitCalculatorTest {
 		gbpCalculator.add(new BankTransaction(500, Currency.GBP, true));
 
 		var profit = gbpCalculator.calculateProfit();
-		int tax = gbpCalculator.calculateTax();
+		var tax = gbpCalculator.calculateTax();
 
 		assertEquals(400, profit.Value);
-		assertEquals(100, tax);
+		assertEquals(100, tax.Value);
 	}
 
 	@Test
@@ -24,10 +24,10 @@ public final class ProfitCalculatorTest {
 		gbpCalculator.add(new BankTransaction(200, Currency.GBP, true));
 
 		var profit = gbpCalculator.calculateProfit();
-		int tax = gbpCalculator.calculateTax();
+		var tax = gbpCalculator.calculateTax();
 
 		assertEquals(256, profit.Value);
-		assertEquals(64, tax);
+		assertEquals(64, tax.Value);
 	}
 
 	@Test
@@ -36,10 +36,10 @@ public final class ProfitCalculatorTest {
 		gbpCalculator.add(new BankTransaction(200, Currency.USD, true));
 
 		var profit = gbpCalculator.calculateProfit();
-		int tax = gbpCalculator.calculateTax();
+		var tax = gbpCalculator.calculateTax();
 
 		assertEquals(221, profit.Value);
-		assertEquals(24, tax);
+		assertEquals(24, tax.Value);
 	}
 
 	@Test
@@ -49,10 +49,10 @@ public final class ProfitCalculatorTest {
 		gbpCalculator.add(new BankTransaction(360, Currency.EUR, false));
 
 		var profit = gbpCalculator.calculateProfit();
-		int tax = gbpCalculator.calculateTax();
+		var tax = gbpCalculator.calculateTax();
 
 		assertEquals(150, profit.Value);
-		assertEquals(100, tax);
+		assertEquals(100, tax.Value);
 	}
 
 	@Test
@@ -63,10 +63,10 @@ public final class ProfitCalculatorTest {
 		gbpCalculator.add(new BankTransaction(20, Currency.GBP, false));
 
 		var profit = gbpCalculator.calculateProfit();
-		int tax = gbpCalculator.calculateTax();
+		var tax = gbpCalculator.calculateTax();
 
 		assertEquals(-120, profit.Value);
-		assertEquals(0, tax);
+		assertEquals(0, tax.Value);
 	}
 
 	@Test
@@ -76,10 +76,10 @@ public final class ProfitCalculatorTest {
 		eurCalculator.add(new BankTransaction(200, Currency.EUR, true));
 
 		var profit = eurCalculator.calculateProfit();
-		int tax = eurCalculator.calculateTax();
+		var tax = eurCalculator.calculateTax();
 
 		assertEquals(491, profit.Value);
-		assertEquals(40, tax);
+		assertEquals(40, tax.Value);
 	}
 
 }

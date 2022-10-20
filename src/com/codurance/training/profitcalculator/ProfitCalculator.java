@@ -40,15 +40,16 @@ public final class ProfitCalculator {
     }
 
     public Amount calculateProfit() {
-        var profit = localAmount - calculateTax() + foreignAmount;
+        var profit = localAmount - calculateTax().Value + foreignAmount;
         return new Amount(profit);
     }
 
-    public int calculateTax() {
-        if (localAmount < 0) {
-            return 0;
+    public Amount calculateTax() {
+    	var taxValue = 0;
+        if (localAmount >= 0) {
+        	taxValue = (int) (localAmount * 0.2);
         }
 
-        return (int) (localAmount * 0.2);
+        return new Amount(taxValue);
     }
 }
