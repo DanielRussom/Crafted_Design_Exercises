@@ -3,18 +3,18 @@ package com.codurance.training.profitcalculator;
 import java.util.Map;
 
 public final class ProfitCalculator {
-    private static final Map<String, Double> EXCHANGE_RATES = Map.of(
-    		"GBP", 1.0, 
-    		"USD", 1.6,
-            "EUR", 1.2);
+    private static final Map<Currency, Double> EXCHANGE_RATES = Map.of(
+    		Currency.GBP, 1.0, 
+    		Currency.USD, 1.6,
+    		Currency.EUR, 1.2);
 
-    private final String localCurrency;
+    private final Currency localCurrency;
     private int localAmount = 0;
     private int foreignAmount = 0;
 
-    public ProfitCalculator(String localCurrency) {
-        this.localCurrency = localCurrency;
-        Double exchangeRate = EXCHANGE_RATES.get(localCurrency);
+    public ProfitCalculator(Currency currency) {
+        this.localCurrency = currency;
+        Double exchangeRate = EXCHANGE_RATES.get(currency);
         if (exchangeRate == null) {
             throw new IllegalArgumentException("Invalid currency.");
         }
