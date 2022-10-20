@@ -20,16 +20,19 @@ public final class ProfitCalculator {
         }
     }
 
-    public void add(int amount, String currency, boolean incoming) {
-        int realAmount = amount;
-        Double exchangeRate = EXCHANGE_RATES.get(currency) / EXCHANGE_RATES.get(localCurrency);
+	public void add(BankTransaction transaction) {
+        int realAmount = transaction.getAmount();
+        Double exchangeRate = EXCHANGE_RATES.get(transaction.getCurrency()) / EXCHANGE_RATES.get(localCurrency);
+        
         if (exchangeRate != null) {
             realAmount /= exchangeRate;
         }
-        if (!incoming) {
+        
+        if (transaction.isOutgoing()) {
             realAmount = -realAmount;
         }
-        if (localCurrency.equals(currency)) {
+        
+        if (localCurrency.equals(transaction.getCurrency())) {
             this.localAmount += realAmount;
         } else {
             this.foreignAmount += realAmount;
