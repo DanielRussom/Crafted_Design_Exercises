@@ -1,9 +1,7 @@
 package com.codurance.training.profitcalculator;
 
 import org.junit.Test;
-import static org.junit.Assert.*;
-import static org.hamcrest.core.Is.is;
-
+import static org.junit.Assert.assertEquals;
 
 public final class ProfitCalculatorTest {
     private final ProfitCalculator gbpCalculator = new ProfitCalculator("GBP");
@@ -16,8 +14,8 @@ public final class ProfitCalculatorTest {
         int profit = gbpCalculator.calculateProfit();
         int tax = gbpCalculator.calculateTax();
 
-        assertThat(profit, is(400));
-        assertThat(tax, is(100));
+        assertEquals(400, profit);
+        assertEquals(100, tax);
     }
 
     @Test public void
@@ -28,8 +26,8 @@ public final class ProfitCalculatorTest {
         int profit = gbpCalculator.calculateProfit();
         int tax = gbpCalculator.calculateTax();
 
-        assertThat(profit, is(256));
-        assertThat(tax, is(64));
+        assertEquals(256, profit);
+        assertEquals(64, tax);
     }
 
     @Test public void
@@ -40,8 +38,8 @@ public final class ProfitCalculatorTest {
         int profit = gbpCalculator.calculateProfit();
         int tax = gbpCalculator.calculateTax();
 
-        assertThat(profit, is(221));
-        assertThat(tax, is(24));
+        assertEquals(221, profit);
+        assertEquals(24, tax);
     }
 
     @Test public void
@@ -53,8 +51,8 @@ public final class ProfitCalculatorTest {
         int profit = gbpCalculator.calculateProfit();
         int tax = gbpCalculator.calculateTax();
 
-        assertThat(profit, is(150));
-        assertThat(tax, is(100));
+        assertEquals(150, profit);
+        assertEquals(100, tax);
     }
 
     @Test public void
@@ -67,8 +65,8 @@ public final class ProfitCalculatorTest {
         int profit = gbpCalculator.calculateProfit();
         int tax = gbpCalculator.calculateTax();
 
-        assertThat(profit, is(-120));
-        assertThat(tax, is(0));
+        assertEquals(-120, profit);
+        assertEquals(0, tax);
     }
 
     @Test public void
@@ -80,7 +78,7 @@ public final class ProfitCalculatorTest {
         int profit = eurCalculator.calculateProfit();
         int tax = eurCalculator.calculateTax();
 
-        assertThat(profit, is(491));
-        assertThat(tax, is(40));
+        assertEquals(491, profit);
+        assertEquals(40, tax);
     }
 }
