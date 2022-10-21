@@ -2,10 +2,14 @@ package com.codurance.training.profitcalculator;
 
 public class Money {
 
-	public int Value;
+	private int Value;
 
 	public Money(int value) {
 		Value = value;
+	}
+	
+	public int getValue() {
+		return Value;
 	}
 
 	public void add(Money moneyToAdd) {
@@ -29,5 +33,9 @@ public class Money {
 		var profit = calculateValueAfterTax();
 		profit.add(foreignMoney);
 		return profit;
+	}
+
+	public void invertValue() {
+		Value = -Value;
 	}
 }

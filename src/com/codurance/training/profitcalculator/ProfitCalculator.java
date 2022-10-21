@@ -19,7 +19,7 @@ public final class ProfitCalculator {
         var realAmount = EXCHANGE_RATES.exchange(transaction, localCurrency);
         
         if (transaction.isOutgoing()) {
-            realAmount.Value = -realAmount.Value;
+            realAmount.invertValue();
         }
         
         if (transaction.isLocal(localCurrency)) {

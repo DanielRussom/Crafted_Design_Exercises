@@ -14,8 +14,8 @@ public final class ProfitCalculatorTest {
 		var profit = gbpCalculator.calculateProfit();
 		var tax = gbpCalculator.calculateTax();
 
-		assertEquals(400, profit.Value);
-		assertEquals(100, tax.Value);
+		assertEquals(400, profit.getValue());
+		assertEquals(100, tax.getValue());
 	}
 
 	@Test
@@ -26,8 +26,8 @@ public final class ProfitCalculatorTest {
 		var profit = gbpCalculator.calculateProfit();
 		var tax = gbpCalculator.calculateTax();
 
-		assertEquals(256, profit.Value);
-		assertEquals(64, tax.Value);
+		assertEquals(256, profit.getValue());
+		assertEquals(64, tax.getValue());
 	}
 
 	@Test
@@ -38,8 +38,8 @@ public final class ProfitCalculatorTest {
 		var profit = gbpCalculator.calculateProfit();
 		var tax = gbpCalculator.calculateTax();
 
-		assertEquals(221, profit.Value);
-		assertEquals(24, tax.Value);
+		assertEquals(221, profit.getValue());
+		assertEquals(24, tax.getValue());
 	}
 
 	@Test
@@ -51,8 +51,8 @@ public final class ProfitCalculatorTest {
 		var profit = gbpCalculator.calculateProfit();
 		var tax = gbpCalculator.calculateTax();
 
-		assertEquals(150, profit.Value);
-		assertEquals(100, tax.Value);
+		assertEquals(150, profit.getValue());
+		assertEquals(100, tax.getValue());
 	}
 
 	@Test
@@ -65,8 +65,8 @@ public final class ProfitCalculatorTest {
 		var profit = gbpCalculator.calculateProfit();
 		var tax = gbpCalculator.calculateTax();
 
-		assertEquals(-120, profit.Value);
-		assertEquals(0, tax.Value);
+		assertEquals(-120, profit.getValue());
+		assertEquals(0, tax.getValue());
 	}
 
 	@Test
@@ -78,8 +78,8 @@ public final class ProfitCalculatorTest {
 		var profit = eurCalculator.calculateProfit();
 		var tax = eurCalculator.calculateTax();
 
-		assertEquals(491, profit.Value);
-		assertEquals(40, tax.Value);
+		assertEquals(491, profit.getValue());
+		assertEquals(40, tax.getValue());
 	}
 
 }
