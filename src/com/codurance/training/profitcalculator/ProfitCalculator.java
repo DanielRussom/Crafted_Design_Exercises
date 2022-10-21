@@ -1,16 +1,11 @@
 package com.codurance.training.profitcalculator;
 
-import java.util.Map;
-
 public final class ProfitCalculator {
-    private static final Map<Currency, Double> EXCHANGE_RATES = Map.of(
-    		Currency.GBP, 1.0, 
-    		Currency.USD, 1.6,
-    		Currency.EUR, 1.2);
+    private static final ExchangeRates EXCHANGE_RATES = new ExchangeRates();
 
     private final Currency localCurrency;
-    private int localAmount = 0;
-    private int foreignAmount = 0;
+    private Money localAmount = new Money(0);
+    private Money foreignAmount = new Money(0);
 
     public ProfitCalculator(Currency currency) {
         this.localCurrency = currency;
@@ -22,7 +17,8 @@ public final class ProfitCalculator {
 
 	public void add(BankTransaction transaction) {
         int realAmount = transaction.getAmount();
-        Double exchangeRate = EXCHANGE_RATES.get(transaction.getCurrency()) / EXCHANGE_RATES.get(localCurrency);
+        
+        Double exchangeRate = EXCHANGE_RATES.getConversionRate(transaction.getCurrency(), localCurrency);
         
         if (exchangeRate != null) {
             realAmount /= exchangeRate;
@@ -33,23 +29,23 @@ public final class ProfitCalculator {
         }
         
         if (localCurrency.equals(transaction.getCurrency())) {
-            this.localAmount += realAmount;
+            this.localAmount.add(realAmount);
         } else {
-            this.foreignAmount += realAmount;
+            this.foreignAmount.add(realAmount);
         }
     }
 
-    public Amount calculateProfit() {
-        var profit = localAmount - calculateTax().Value + foreignAmount;
-        return new Amount(profit);
+    public Money calculateProfit() {
+        var profit = localAmount.calculateValueAfterTax().Value + foreignAmount.Value;
+        return new Money(profit);
     }
 
-    public Amount calculateTax() {
+    public Money calculateTax() {
     	var taxValue = 0;
-        if (localAmount >= 0) {
-        	taxValue = (int) (localAmount * 0.2);
+        if (localAmount.Value >= 0) {
+        	taxValue = (int) (localAmount.Value * 0.2);
         }
 
-        return new Amount(taxValue);
+        return new Money(taxValue);
     }
 }
