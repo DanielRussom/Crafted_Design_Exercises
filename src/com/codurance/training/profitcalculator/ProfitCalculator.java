@@ -1,8 +1,7 @@
 package com.codurance.training.profitcalculator;
 
 public final class ProfitCalculator {
-    private static final ExchangeRates EXCHANGE_RATES = new ExchangeRates();
-
+    private ExchangeRates exchangeRates = new ExchangeRates();
     private final Currency localCurrency;
     private Money localAmount = new Money(0);
     private Money foreignAmount = new Money(0);
@@ -12,7 +11,7 @@ public final class ProfitCalculator {
     }
 
 	public void add(BankTransaction transaction) {
-        var realAmount = EXCHANGE_RATES.exchange(transaction, localCurrency);
+        var realAmount = exchangeRates.exchange(transaction, localCurrency);
         
         if (transaction.isOutgoing()) {
             realAmount.invertValue();
@@ -20,9 +19,10 @@ public final class ProfitCalculator {
         
         if (transaction.isLocal(localCurrency)) {
             localAmount.add(realAmount);
-        } else {
-            foreignAmount.add(realAmount);
+            return;
         }
+        
+        foreignAmount.add(realAmount);
     }
 
     public Money calculateProfit() {

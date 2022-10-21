@@ -2,8 +2,6 @@ package com.codurance.training.profitcalculator;
 
 import org.junit.Test;
 
-import static com.codurance.builders.BasketBuilder.aBasket;
-import static com.codurance.builders.BookBuilder.aCookingBook;
 import static org.junit.Assert.assertEquals;
 
 public final class ProfitCalculatorTest {
