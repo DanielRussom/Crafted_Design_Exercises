@@ -24,4 +24,8 @@ public class BankTransaction {
 		return currency;
 	}
 
+	public boolean isLocal(Currency localCurrency) {
+		return currency == localCurrency;
+	}
+
 }

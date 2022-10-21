@@ -8,8 +8,8 @@ public class Money {
 		Value = value;
 	}
 
-	public void add(int valueToAdd) {
-		Value += valueToAdd;
+	public void add(Money moneyToAdd) {
+		Value += moneyToAdd.Value;
 	}
 
 	public Money calculateValueAfterTax() {
@@ -25,7 +25,7 @@ public class Money {
 		return new Money(taxValue);
 	}
 
-	public Money calculateProfit(int foreignMoney) {
+	public Money calculateProfit(Money foreignMoney) {
 		var profit = calculateValueAfterTax();
 		profit.add(foreignMoney);
 		return profit;

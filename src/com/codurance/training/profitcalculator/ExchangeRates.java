@@ -15,6 +15,17 @@ public class ExchangeRates {
 	public double getConversionRate(Currency fromCurrency, Currency toCurrency) {
 		return EXCHANGE_RATES.get(fromCurrency) / EXCHANGE_RATES.get(toCurrency);
 	}
+
+	public Money exchange(BankTransaction transaction, Currency localCurrency) {
+		var transactionAmount = transaction.getAmount();
+		Double exchangeRate = getConversionRate(transaction.getCurrency(), localCurrency);
+		
+		if (exchangeRate != null) {
+			transactionAmount /= exchangeRate;
+        }
+        
+		return new Money(transactionAmount);
+	}
 	
 	
 }

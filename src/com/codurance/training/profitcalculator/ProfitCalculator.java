@@ -16,19 +16,13 @@ public final class ProfitCalculator {
     }
 
 	public void add(BankTransaction transaction) {
-        int realAmount = transaction.getAmount();
-        
-        Double exchangeRate = EXCHANGE_RATES.getConversionRate(transaction.getCurrency(), localCurrency);
-        
-        if (exchangeRate != null) {
-            realAmount /= exchangeRate;
-        }
+        var realAmount = EXCHANGE_RATES.exchange(transaction, localCurrency);
         
         if (transaction.isOutgoing()) {
-            realAmount = -realAmount;
+            realAmount.Value = -realAmount.Value;
         }
         
-        if (localCurrency.equals(transaction.getCurrency())) {
+        if (transaction.isLocal(localCurrency)) {
             localAmount.add(realAmount);
         } else {
             foreignAmount.add(realAmount);
@@ -36,7 +30,7 @@ public final class ProfitCalculator {
     }
 
     public Money calculateProfit() {
-    	return localAmount.calculateProfit(foreignAmount.Value);
+    	return localAmount.calculateProfit(foreignAmount);
     }
 
     public Money calculateTax() {
