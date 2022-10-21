@@ -9,10 +9,6 @@ public final class ProfitCalculator {
 
     public ProfitCalculator(Currency currency) {
         this.localCurrency = currency;
-        Double exchangeRate = EXCHANGE_RATES.get(currency);
-        if (exchangeRate == null) {
-            throw new IllegalArgumentException("Invalid currency.");
-        }
     }
 
 	public void add(BankTransaction transaction) {
