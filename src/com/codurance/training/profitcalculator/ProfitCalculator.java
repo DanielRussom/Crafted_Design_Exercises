@@ -29,23 +29,17 @@ public final class ProfitCalculator {
         }
         
         if (localCurrency.equals(transaction.getCurrency())) {
-            this.localAmount.add(realAmount);
+            localAmount.add(realAmount);
         } else {
-            this.foreignAmount.add(realAmount);
+            foreignAmount.add(realAmount);
         }
     }
 
     public Money calculateProfit() {
-        var profit = localAmount.calculateValueAfterTax().Value + foreignAmount.Value;
-        return new Money(profit);
+    	return localAmount.calculateProfit(foreignAmount.Value);
     }
 
     public Money calculateTax() {
-    	var taxValue = 0;
-        if (localAmount.Value >= 0) {
-        	taxValue = (int) (localAmount.Value * 0.2);
-        }
-
-        return new Money(taxValue);
+    	return localAmount.calculateTax();
     }
 }

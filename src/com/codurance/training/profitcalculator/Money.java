@@ -16,12 +16,18 @@ public class Money {
 		return new Money(Value - calculateTax().Value);
 	}
 
-	private Money calculateTax() {
-		var taxValue = 0;
-        if (Value >= 0) {
-        	taxValue = (int) (Value * 0.2);
+	public Money calculateTax() {
+        if (Value < 0) {
+        	return new Money(0);
         }
+		
+        var taxValue = (int) (Value * 0.2);
+		return new Money(taxValue);
+	}
 
-        return new Money(taxValue);
+	public Money calculateProfit(int foreignMoney) {
+		var profit = calculateValueAfterTax();
+		profit.add(foreignMoney);
+		return profit;
 	}
 }
