@@ -1,4 +1,4 @@
-package com.codurance.twitter.acceptance;
+package com.codurance.twitter.tests;
 
 import com.codurance.twitter.Tweet;
 import com.codurance.twitter.TwitterEngine;
@@ -27,11 +27,11 @@ public abstract class BaseTwitterSpec {
 
 	@Before
 	public void initialise() {
-	    twitterEngine = new TwitterEngine();
+	    twitterEngine = new TwitterEngine(null);
 	}
 
 	void post(String twitterId, String tweet) {
-		throw new UnsupportedOperationException();
+		twitterEngine.post(twitterId, tweet);
 	}
 
 	List<Tweet> tweetsFrom(String twitterId) {

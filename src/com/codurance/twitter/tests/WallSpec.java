@@ -1,4 +1,4 @@
-package com.codurance.twitter.acceptance;
+package com.codurance.twitter.tests;
 
 import com.codurance.twitter.Tweet;
 import org.junit.Test;
