@@ -1,5 +1,6 @@
 package com.codurance.twitter.tests;
 
+import com.codurance.twitter.TweetDataStore;
 import com.codurance.twitter.Tweet;
 import com.codurance.twitter.TwitterEngine;
 import org.junit.Before;
@@ -24,10 +25,12 @@ public abstract class BaseTwitterSpec {
 	static final String PEDRO_FIRST_TWEET   = "Pedro first tweet";
 
 	private TwitterEngine twitterEngine;
+	private TweetDataStore postDataController;
 
 	@Before
 	public void initialise() {
-	    twitterEngine = new TwitterEngine(null);
+		postDataController = new TweetDataStore();
+	    twitterEngine = new TwitterEngine(postDataController);
 	}
 
 	void post(String twitterId, String tweet) {

@@ -2,9 +2,9 @@ package com.codurance.twitter;
 
 public class TwitterEngine {
 
-	private PostDataController _postData;
+	private TweetDataStore _postData;
 
-	public TwitterEngine(PostDataController postData) {
+	public TwitterEngine(TweetDataStore postData) {
 		_postData = postData;
 	}
 

@@ -1,10 +1,9 @@
 package com.codurance.twitter;
 
-public class PostDataController {
+public class TweetDataStore {
 
 	public void savePost(String twitterId, String tweet) {
-		// TODO Auto-generated method stub
-		
+		throw new UnsupportedOperationException();
 	}
 
 }
