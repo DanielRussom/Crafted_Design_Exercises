@@ -2,12 +2,13 @@ package com.codurance.twitter;
 
 public class TwitterEngine {
 
+	private PostDataController _postData;
+
 	public TwitterEngine(PostDataController postData) {
-		// TODO Auto-generated constructor stub
+		_postData = postData;
 	}
 
 	public void post(String twitterId, String tweet) {
-		// TODO Auto-generated method stub
-		
+		_postData.savePost(twitterId, tweet);
 	}
 }

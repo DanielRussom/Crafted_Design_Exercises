@@ -1,6 +1,6 @@
 package com.codurance.twitter.tests;
 
-import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -19,8 +19,7 @@ public class TwitterEngineShould {
 		
 		underTest.post("twitterId", "postText");
 		
-		verify(postData, times(1)).savePost();
-		assertEquals(1,1);
+		verify(postData, times(1)).savePost(anyString(), anyString());
 	}
 
 }
