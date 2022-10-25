@@ -22,4 +22,19 @@ public class TwitterEngineShould {
 		verify(postData, times(1)).savePost(anyString(), anyString());
 	}
 
+	@Test
+	public void Not_store_post_over_139_characters() {
+		var postData = mock(PostDataController.class);
+		var underTest = new TwitterEngine(postData);
+		var postText = "";
+		for(int i = 0; i < 140; i++) {
+			postText += "A";
+		}
+		
+		underTest.post("twitterId", postText);
+		
+		verify(postData, times(0)).savePost(anyString(), anyString());
+	}
+
+
 }
