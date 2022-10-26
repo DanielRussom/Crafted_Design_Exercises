@@ -1,10 +1,15 @@
 package com.codurance.twitter.tests;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
+import java.util.ArrayList;
+
+import com.codurance.twitter.Tweet;
 import com.codurance.twitter.TweetDataStore;
 import com.codurance.twitter.TwitterEngine;
 
@@ -34,6 +39,22 @@ public class TwitterEngineShould {
 		underTest.post("twitterId", postText);
 		
 		verify(postData, times(0)).savePost(anyString(), anyString());
+	}
+	
+	@Test
+	public void Get_tweets_from_specific_user() {
+		var twitterId = "expectedHandle";
+		var postData = mock(TweetDataStore.class);
+		var testTweets = new ArrayList<Tweet>();
+		testTweets.add(new Tweet(1, twitterId, "test"));
+		testTweets.add(new Tweet(2, "incorrect", "test2"));
+		when(postData.getAll()).thenReturn(testTweets);
+		var underTest = new TwitterEngine(postData);
+		
+		
+		var result = underTest.getTweetsFrom(twitterId);
+		
+		assertEquals(1, result.size());
 	}
 
 

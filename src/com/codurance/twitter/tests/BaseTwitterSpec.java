@@ -38,7 +38,7 @@ public abstract class BaseTwitterSpec {
 	}
 
 	List<Tweet> tweetsFrom(String twitterId) {
-		throw new UnsupportedOperationException();
+		return twitterEngine.getTweetsFrom(twitterId);
 	}
 
 	List<Tweet> wallOf(String twitterId) {

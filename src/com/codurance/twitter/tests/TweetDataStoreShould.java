@@ -10,7 +10,7 @@ import com.codurance.twitter.Tweet;
 import com.codurance.twitter.TweetDataStore;
 
 class TweetDataStoreShould {
-
+	
 	@Test
 	void save_a_tweet() {
 		TweetDataStore underTest = new TweetDataStore();
