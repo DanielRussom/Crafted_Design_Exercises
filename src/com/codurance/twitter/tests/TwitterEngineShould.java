@@ -48,13 +48,18 @@ public class TwitterEngineShould {
 		var testTweets = new ArrayList<Tweet>();
 		testTweets.add(new Tweet(1, twitterId, "test"));
 		testTweets.add(new Tweet(2, "incorrect", "test2"));
+		testTweets.add(new Tweet(3, twitterId, "test3"));
+		testTweets.add(new Tweet(4, twitterId, "test4"));
 		when(postData.getAll()).thenReturn(testTweets);
 		var underTest = new TwitterEngine(postData);
 		
 		
 		var result = underTest.getTweetsFrom(twitterId);
 		
-		assertEquals(1, result.size());
+		assertEquals(3, result.size());
+		for(var tweet : result) {
+			assertEquals(twitterId, tweet.twitterHandle);
+		}
 	}
 
 

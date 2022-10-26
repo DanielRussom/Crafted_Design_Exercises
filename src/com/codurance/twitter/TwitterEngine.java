@@ -18,11 +18,15 @@ public class TwitterEngine {
 	}
 
 	public List<Tweet> getTweetsFrom(String twitterId) {
-		var firstTweet =_postData.getAll().get(0);
+		var tweetsFromId = new ArrayList<Tweet>();
+		var allTweets = _postData.getAll();
 		
-		var test = new ArrayList<Tweet>();
-		test.add(firstTweet);
+		for(var tweet : allTweets) {
+			if(tweet.twitterHandle.equals(twitterId)) {
+				tweetsFromId.add(tweet);
+			}
+		}
 		
-		return test; 
+		return tweetsFromId; 
 	}
 }
