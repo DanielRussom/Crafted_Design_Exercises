@@ -9,8 +9,8 @@ public class PaymentSubmitter {
 	}
 
 	public PaymentSubmitResult submit(StoreUser user) {
-		stockChecker.checkStock(user.getBasket());
-		return new PaymentSubmitResult("Item(s) test is out of stock");
+		var stockResult = stockChecker.checkStock(user.getBasket());
+		return new PaymentSubmitResult("Item(s) " + stockResult.getOutOfStockItems() + " is out of stock");
 	}
 
 }

@@ -7,19 +7,23 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 class PaymentSubmitterShould {
 
-	@Test
-	void list_out_of_stock_items_in_basket() {
+	@ParameterizedTest
+	@ValueSource(strings = {"test", "mela,panino"})
+	void list_out_of_stock_items_in_basket(String outOfStockItems) {
 		var stockChecker = mock(StockChecker.class);
 		var basket = new StoreBasket();
 		var underTest = new PaymentSubmitter(stockChecker);
 		var user = mock(StoreUser.class);
 		when(user.getBasket()).thenReturn(basket);
-		var expectedMessage = "Item(s) test is out of stock";
+		var expectedMessage = "Item(s) " + outOfStockItems + " is out of stock";
 
-		var checkStockResult = new CheckStockResult(false, "test");
+		var checkStockResult = mock(CheckStockResult.class);
+		when(checkStockResult.getOutOfStockItems()).thenReturn(outOfStockItems);
 		when(stockChecker.checkStock(basket)).thenReturn(checkStockResult);
 		
 		var submitResult = underTest.submit(user);
