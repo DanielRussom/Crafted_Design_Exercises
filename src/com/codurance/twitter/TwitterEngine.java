@@ -1,6 +1,5 @@
 package com.codurance.twitter;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,6 +22,7 @@ public class TwitterEngine {
 		
 		var tweetsFromId = allTweets.stream().filter(
 				tweet -> tweet.twitterHandle.equals(twitterId))
+				.sorted((firstTweet, secondTweet) -> secondTweet.id.compareTo(firstTweet.id))
 				.collect(Collectors.toList());
 		
 		return tweetsFromId; 

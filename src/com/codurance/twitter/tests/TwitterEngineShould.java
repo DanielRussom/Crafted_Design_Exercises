@@ -72,5 +72,23 @@ public class TwitterEngineShould {
 		assertEquals(0, result.size());
 	}
 
+	@Test
+	public void Get_tweets_in_reverse_chronological_order() {
+		var twitterId = "expectedHandle";
+		var postData = mock(TweetDataStore.class);
+		var testTweets = new ArrayList<Tweet>();
+		testTweets.add(new Tweet(1, twitterId, "test"));
+		testTweets.add(new Tweet(2, twitterId, "test2"));
+		when(postData.getAll()).thenReturn(testTweets);
+		var underTest = new TwitterEngine(postData);
+		
+		var result = underTest.getTweetsFrom(twitterId);
+
+		assertEquals(2, result.size());
+		assertEquals(2, (int)result.get(0).id);
+		assertEquals(1, (int)result.get(1).id);
+	}
+	
+
 
 }
