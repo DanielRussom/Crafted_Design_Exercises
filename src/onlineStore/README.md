@@ -3,9 +3,9 @@ Online Store
 
 ### Requirements
 
-Given a user has a few items in her shopping basket
-When she submits the payment details
-Then she receives the payment confirmation
+Given a user has a few items in her shopping basket  
+When she submits the payment details  
+Then she receives the payment confirmation  
 
 ### Acceptance criteria
 
