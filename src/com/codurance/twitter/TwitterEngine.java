@@ -2,6 +2,7 @@ package com.codurance.twitter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class TwitterEngine {
 
@@ -18,14 +19,11 @@ public class TwitterEngine {
 	}
 
 	public List<Tweet> getTweetsFrom(String twitterId) {
-		var tweetsFromId = new ArrayList<Tweet>();
 		var allTweets = _postData.getAll();
 		
-		for(var tweet : allTweets) {
-			if(tweet.twitterHandle.equals(twitterId)) {
-				tweetsFromId.add(tweet);
-			}
-		}
+		var tweetsFromId = allTweets.stream().filter(
+				tweet -> tweet.twitterHandle.equals(twitterId))
+				.collect(Collectors.toList());
 		
 		return tweetsFromId; 
 	}

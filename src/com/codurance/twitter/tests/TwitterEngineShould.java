@@ -53,13 +53,23 @@ public class TwitterEngineShould {
 		when(postData.getAll()).thenReturn(testTweets);
 		var underTest = new TwitterEngine(postData);
 		
-		
 		var result = underTest.getTweetsFrom(twitterId);
 		
 		assertEquals(3, result.size());
 		for(var tweet : result) {
 			assertEquals(twitterId, tweet.twitterHandle);
 		}
+	}
+	
+	@Test
+	public void Get_no_tweets() {
+		var postData = mock(TweetDataStore.class);
+		when(postData.getAll()).thenReturn(new ArrayList<Tweet>());
+		var underTest = new TwitterEngine(postData);
+		
+		var result = underTest.getTweetsFrom("test");
+		
+		assertEquals(0, result.size());
 	}
 
 
