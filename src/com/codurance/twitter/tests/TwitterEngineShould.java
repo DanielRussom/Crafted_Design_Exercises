@@ -9,6 +9,7 @@ import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 
+import com.codurance.twitter.InvalidTweetException;
 import com.codurance.twitter.Tweet;
 import com.codurance.twitter.TweetDataStore;
 import com.codurance.twitter.TwitterEngine;
@@ -27,7 +28,7 @@ public class TwitterEngineShould {
 		verify(postData, times(1)).savePost(anyString(), anyString());
 	}
 
-	@Test
+	@Test (expected = InvalidTweetException.class)
 	public void Not_store_post_over_139_characters() {
 		var postData = mock(TweetDataStore.class);
 		var underTest = new TwitterEngine(postData);
@@ -37,8 +38,6 @@ public class TwitterEngineShould {
 		}
 		
 		underTest.post("twitterId", postText);
-		
-		verify(postData, times(0)).savePost(anyString(), anyString());
 	}
 	
 	@Test

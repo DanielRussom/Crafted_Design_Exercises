@@ -12,9 +12,10 @@ public class TwitterEngine {
 	}
 
 	public void post(String twitterId, String tweet) {
-		if(tweet.length() < 140) {
-			_postData.savePost(twitterId, tweet);
+		if(tweet.length() >=  140) {
+			throw new InvalidTweetException("Over character limit");
 		}
+		_postData.savePost(twitterId, tweet);
 	}
 
 	public List<Tweet> getTweetsFrom(String twitterId) {
