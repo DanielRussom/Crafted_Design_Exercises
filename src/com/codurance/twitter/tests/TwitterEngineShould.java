@@ -8,6 +8,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.codurance.twitter.InvalidTweetException;
 import com.codurance.twitter.Tweet;
@@ -88,6 +89,40 @@ public class TwitterEngineShould {
 		assertEquals(1, (int)result.get(1).id);
 	}
 	
+	@Test
+	public void Follow_expected_user() {
+		var postData = mock(TweetDataStore.class);
+		var sourceUser = "source";
+		var userToFollow = "target";
+		var underTest = new TwitterEngine(postData);
+		
+		underTest.formerFollowsLatter(sourceUser, userToFollow);
+		
+		verify(postData, times(1)).followUser(sourceUser, userToFollow);
+	}
 
+	
+	@Test
+	public void Get_tweets_of_all_followed_users() {
+		var postData = mock(TweetDataStore.class);
+		var sourceUser = "sourceHandle";
+		var secondHandle = "secondHandle";
+		var underTest = new TwitterEngine(postData);
+		var expectedFollowedUsers = new ArrayList<String>();
+		expectedFollowedUsers.add(secondHandle);
+		when(postData.getFollowedUsers(sourceUser)).thenReturn(expectedFollowedUsers);
+		
+		var testTweets = new ArrayList<Tweet>();
+		testTweets.add(new Tweet(1, sourceUser, "test"));
+		testTweets.add(new Tweet(2, secondHandle, "test2"));
+		testTweets.add(new Tweet(2, "unrelatedAccount", "test3"));
+		when(postData.getAll()).thenReturn(testTweets);
+
+		var result = underTest.getWallOf(sourceUser);
+
+		assertEquals(2, result.size());
+	}
+	
+	
 
 }

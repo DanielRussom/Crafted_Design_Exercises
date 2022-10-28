@@ -42,11 +42,11 @@ public abstract class BaseTwitterSpec {
 	}
 
 	List<Tweet> wallOf(String twitterId) {
-		throw new UnsupportedOperationException();
+		return twitterEngine.getWallOf(twitterId);
 	}
 
 	void formerFollowsLatter(String twitterId, String twitterIdToBeFollowed) {
-		throw new UnsupportedOperationException();
+		twitterEngine.formerFollowsLatter(twitterId, twitterIdToBeFollowed);
 	}
 
 }

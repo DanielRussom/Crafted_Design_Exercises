@@ -23,7 +23,7 @@ class TweetDataStoreShould {
 		assertEquals(1, result.size());
 		var firstTweet = result.get(0);
 		assertEquals(1, firstTweet.id);
-		assertEquals(content, firstTweet.message);
+		assertEquals(content, firstTweet.message());
 		assertEquals(twitterId, firstTweet.twitterHandle);
 	}
 
@@ -42,11 +42,21 @@ class TweetDataStoreShould {
 		assertEquals(2, result.size());
 		var firstTweet = result.get(0);
 		assertEquals(1, firstTweet.id);
-		assertEquals(content1, firstTweet.message);
+		assertEquals(content1, firstTweet.message());
 		assertEquals(twitterId1, firstTweet.twitterHandle);
 		var secondTweet = result.get(1);
 		assertEquals(2, secondTweet.id);
-		assertEquals(content2, secondTweet.message);
+		assertEquals(content2, secondTweet.message());
 		assertEquals(twitterId2, secondTweet.twitterHandle);
+	}
+	
+	@Test
+	void track_followed_users() {
+		TweetDataStore underTest = new TweetDataStore();
+		
+		underTest.followUser("user1", "user2");
+		var followedUsers = underTest.getFollowedUsers("user1");
+		
+		assertEquals(1, followedUsers.size());
 	}
 }

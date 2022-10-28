@@ -2,7 +2,7 @@ package com.codurance.twitter;
 
 public class Tweet {
 
-	public String message;
+	private String message;
 	public String twitterHandle;
 	public Integer id;
 
@@ -13,7 +13,7 @@ public class Tweet {
 	}
 
 	public String message() {
-		throw new UnsupportedOperationException();
+		return message;
 	}
 
 }

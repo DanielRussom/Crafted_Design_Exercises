@@ -28,4 +28,21 @@ public class TwitterEngine {
 		
 		return tweetsFromId; 
 	}
+
+	public void formerFollowsLatter(String twitterId, String twitterIdToBeFollowed) {
+		_postData.followUser(twitterId, twitterIdToBeFollowed);
+	}
+
+	public List<Tweet> getWallOf(String twitterId) {
+		var allTweets = _postData.getAll();
+		var followedUsers = _postData.getFollowedUsers(twitterId);
+		followedUsers.add(twitterId);
+		
+		var tweetsFromWall = allTweets.stream().filter(
+				tweet -> followedUsers.contains(tweet.twitterHandle))
+				.sorted((firstTweet, secondTweet) -> secondTweet.id.compareTo(firstTweet.id))
+				.collect(Collectors.toList());
+
+		return tweetsFromWall;
+	}
 }
