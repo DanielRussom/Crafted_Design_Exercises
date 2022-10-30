@@ -4,10 +4,12 @@ public class PaymentSubmitter {
 
 	private StockChecker stockChecker;
 	private PaymentGateway paymentGateway;
+	private EmailSender emailSender;
 
-	public PaymentSubmitter(StockChecker stockChecker, PaymentGateway paymentGateway) {
+	public PaymentSubmitter(StockChecker stockChecker, PaymentGateway paymentGateway, EmailSender emailSender) {
 		this.stockChecker = stockChecker;
 		this.paymentGateway = paymentGateway;
+		this.emailSender = emailSender;
 	}
 
 	public PaymentSubmitResult submit(StoreUser user) {
@@ -18,7 +20,12 @@ public class PaymentSubmitter {
 		}
 		
 		var gatewayResult = paymentGateway.sendPayment(user);
-		return new PaymentSubmitResult(gatewayResult.getMessage());
+		if(gatewayResult.getMessage() != "") {
+			return new PaymentSubmitResult(gatewayResult.getMessage());
+		}
+		
+		emailSender.sendConfirmationEmail(user);
+		return new PaymentSubmitResult(PaymentStatus.Success);
 	}
 
 }
