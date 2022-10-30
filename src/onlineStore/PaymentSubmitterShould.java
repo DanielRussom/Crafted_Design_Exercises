@@ -6,7 +6,6 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -29,6 +28,7 @@ class PaymentSubmitterShould {
 		var submitResult = underTest.submit(user);
 
 		assertEquals(expectedMessage, submitResult.getMessage());
+		assertEquals(PaymentStatus.Fail, submitResult.getStatus());
 		verify(stockChecker, times(1)).checkStock(basket);
 	}
 

@@ -12,4 +12,8 @@ public class PaymentSubmitResult {
 		return message;
 	}
 
+	public PaymentStatus getStatus() {
+		return PaymentStatus.Fail;
+	}
+
 }
