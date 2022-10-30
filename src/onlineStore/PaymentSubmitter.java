@@ -13,11 +13,12 @@ public class PaymentSubmitter {
 	public PaymentSubmitResult submit(StoreUser user) {
 		var stockResult = stockChecker.checkStock(user.getBasket());
 		
-		if(stockResult.getOutOfStockItems() == "") {
-			paymentGateway.sendPayment(user);
-			return new PaymentSubmitResult("User failed credit check.");
+		if(stockResult.getOutOfStockItems() != "") {
+			return new PaymentSubmitResult("Item(s) " + stockResult.getOutOfStockItems() + " is out of stock");
 		}
-		return new PaymentSubmitResult("Item(s) " + stockResult.getOutOfStockItems() + " is out of stock");
+		
+		var gatewayResult = paymentGateway.sendPayment(user);
+		return new PaymentSubmitResult(gatewayResult.getMessage());
 	}
 
 }

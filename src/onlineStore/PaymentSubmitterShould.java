@@ -8,7 +8,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -45,21 +44,21 @@ class PaymentSubmitterShould {
 		verify(stockChecker, times(1)).checkStock(any(StoreBasket.class));
 		verify(paymentGateway, times(0)).sendPayment(user);
 	}
-	
-	@Test
-	void log_payment_gateway_error_reason() {
-		var expectedMessage = "User failed credit check.";
-		
+
+	@ParameterizedTest
+	@ValueSource(strings = {"User failed credit check.", "Other error"})
+	void log_payment_gateway_error_reason(String gatewayError) {
 		var checkStockResult = mock(CheckStockResult.class);
 		when(checkStockResult.getOutOfStockItems()).thenReturn("");
 		when(stockChecker.checkStock(any(StoreBasket.class))).thenReturn(checkStockResult);
 		
 		var paymentResult = mock(PaymentGatewayResult.class);
+		when(paymentResult.getMessage()).thenReturn(gatewayError);
 		when(paymentGateway.sendPayment(user)).thenReturn(paymentResult);
 		
 		var submitResult = underTest.submit(user);
 
-		assertEquals(expectedMessage, submitResult.getMessage());
+		assertEquals(gatewayError, submitResult.getMessage());
 		assertEquals(PaymentStatus.Fail, submitResult.getStatus());
 		verify(paymentGateway, times(1)).sendPayment(user);
 	}
