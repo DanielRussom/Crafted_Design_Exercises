@@ -5,10 +5,6 @@ public class PaymentSubmitter {
 	private StockChecker stockChecker;
 	private PaymentGateway paymentGateway;
 
-	public PaymentSubmitter(StockChecker stockChecker) {
-		this.stockChecker = stockChecker;
-	}
-
 	public PaymentSubmitter(StockChecker stockChecker, PaymentGateway paymentGateway) {
 		this.stockChecker = stockChecker;
 		this.paymentGateway = paymentGateway;
