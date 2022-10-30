@@ -7,4 +7,9 @@ public class CheckStockResult {
 		return null;
 	}
 
+	public boolean hasOutOfStockItems() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

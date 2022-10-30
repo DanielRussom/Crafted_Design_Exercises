@@ -28,17 +28,27 @@ class PaymentSubmitterShould {
 		underTest = new PaymentSubmitter(stockChecker, paymentGateway, emailSender);
 		
 		user = mock(StoreUser.class);
-		when(user.getBasket()).thenReturn(new StoreBasket());
+		when(user.getBasket()).thenReturn(new StoreBasket());		
+		
+		var checkStockResult = mock(CheckStockResult.class);
+		when(checkStockResult.getOutOfStockItems()).thenReturn("");
+		when(checkStockResult.hasOutOfStockItems()).thenReturn(false);
+		when(stockChecker.checkStock(any(StoreBasket.class))).thenReturn(checkStockResult);
+
+		var paymentResult = mock(PaymentGatewayResult.class);
+		when(paymentResult.getErrorMessage()).thenReturn("");
+		when(paymentResult.hasError()).thenReturn(false);
+		when(paymentGateway.sendPayment(user)).thenReturn(paymentResult);
 	}
 
 	@ParameterizedTest
 	@ValueSource(strings = {"test", "mela,panino"})
 	void list_out_of_stock_items_in_basket(String outOfStockItems) {
-		var expectedMessage = "Item(s) " + outOfStockItems + " is out of stock";
-
 		var checkStockResult = mock(CheckStockResult.class);
 		when(checkStockResult.getOutOfStockItems()).thenReturn(outOfStockItems);
+		when(checkStockResult.hasOutOfStockItems()).thenReturn(true);
 		when(stockChecker.checkStock(any(StoreBasket.class))).thenReturn(checkStockResult);
+		var expectedMessage = "Item(s) " + outOfStockItems + " is out of stock";
 		
 		var submitResult = underTest.submit(user);
 
@@ -52,39 +62,25 @@ class PaymentSubmitterShould {
 	@ParameterizedTest
 	@ValueSource(strings = {"User failed credit check.", "Other error"})
 	void log_payment_gateway_error_reason(String gatewayError) {
-		var checkStockResult = mock(CheckStockResult.class);
-		when(checkStockResult.getOutOfStockItems()).thenReturn("");
-		when(stockChecker.checkStock(any(StoreBasket.class))).thenReturn(checkStockResult);
-		
 		var paymentResult = mock(PaymentGatewayResult.class);
-		when(paymentResult.getMessage()).thenReturn(gatewayError);
+		when(paymentResult.getErrorMessage()).thenReturn(gatewayError);
+		when(paymentResult.hasError()).thenReturn(true);
 		when(paymentGateway.sendPayment(user)).thenReturn(paymentResult);
 		
 		var submitResult = underTest.submit(user);
 
 		assertEquals(gatewayError, submitResult.getMessage());
 		assertEquals(PaymentStatus.Fail, submitResult.getStatus());
-		verify(stockChecker, times(1)).checkStock(any(StoreBasket.class));
 		verify(paymentGateway, times(1)).sendPayment(user);
 		verify(emailSender, times(0)).sendConfirmationEmail(user);
 	}
 	
 	@Test
 	void send_success_email() {
-		var checkStockResult = mock(CheckStockResult.class);
-		when(checkStockResult.getOutOfStockItems()).thenReturn("");
-		when(stockChecker.checkStock(any(StoreBasket.class))).thenReturn(checkStockResult);
-		
-		var paymentResult = mock(PaymentGatewayResult.class);
-		when(paymentResult.getMessage()).thenReturn("");
-		when(paymentGateway.sendPayment(user)).thenReturn(paymentResult);
-		
 		var submitResult = underTest.submit(user);
 
 		assertEquals("", submitResult.getMessage());
 		assertEquals(PaymentStatus.Success, submitResult.getStatus());
-		verify(stockChecker, times(1)).checkStock(any(StoreBasket.class));
-		verify(paymentGateway, times(1)).sendPayment(user);
 		verify(emailSender, times(1)).sendConfirmationEmail(user);
 	}
 
